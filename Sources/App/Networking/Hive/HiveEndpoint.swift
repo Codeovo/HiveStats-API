@@ -8,7 +8,14 @@ enum Hive {
     
     // MARK: - Player
     case player(name: String)
-    case playerGame(name: String, gameType: GameType)
+    case playerGame(name: String, game: GameType)
+    
+    // MARK: - Leaderboard
+    case leaderboard(game: GameType)
+    
+    // MARK: - Maps
+    case gameMaps(game: GameType)
+    case mapDetails(game: GameType, map: String)
 }
 
 extension Hive: Endpoint {
@@ -24,6 +31,11 @@ extension Hive: Endpoint {
             
         case .player(let name): return "/v1/player/\(name)"
         case .playerGame(let name, let game): return "/v1/player/\(name)/\(game.game())"
+            
+        case .gameMaps(let game): return "/v1/game/\(game.game())/maps"
+        case .mapDetails(let game, let map): return "/v1/game/\(game.game())/maps/\(map)"
+            
+        case .leaderboard(let game): return "/v1/game/\(game.game())/leaderboard/1/200"
         }
     }
     
