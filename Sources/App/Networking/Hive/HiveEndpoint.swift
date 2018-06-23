@@ -1,8 +1,6 @@
 import Foundation
 
 enum Hive {
-    private let apiVersion = "v1"
-    
     // MARK: - Server
     case playerCount
     case uniqueCount
@@ -20,12 +18,12 @@ extension Hive: Endpoint {
     
     var path: String {
         switch self {
-        case .playerCount: return "/\(apiVersion)/server/playercount"
-        case .uniqueCount: return "/\(apiVersion)/server/uniquecount"
-        case .globalAchievements: return "/\(apiVersion)/server/achievements"
+        case .playerCount: return "/v1/server/playercount"
+        case .uniqueCount: return "/v1/server/uniquecount"
+        case .globalAchievements: return "/v1/server/achievements"
             
-        case .player(let name): return "/\(apiVersion)/player/\(name)"
-        case .playerGame(let name, let game): return "/\(apiVersion)/player/\(name)/\(game.game())"
+        case .player(let name): return "/v1/player/\(name)"
+        case .playerGame(let name, let game): return "/v1/player/\(name)/\(game.game())"
         }
     }
     
