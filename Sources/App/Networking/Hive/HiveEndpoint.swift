@@ -10,7 +10,7 @@ enum Hive {
     
     // MARK: - Player
     case player(name: String)
-    case playerGame(name: String, gameType: String)
+    case playerGame(name: String, gameType: GameType)
 }
 
 extension Hive: Endpoint {
@@ -25,7 +25,7 @@ extension Hive: Endpoint {
         case .globalAchievements: return "/\(apiVersion)/server/achievements"
             
         case .player(let name): return "/\(apiVersion)/player/\(name)"
-        case .playerGame(let name, let game): return "/\(apiVersion)/player/\(name)/\(game)"
+        case .playerGame(let name, let game): return "/\(apiVersion)/player/\(name)/\(game.game())"
         }
     }
     
