@@ -10,6 +10,11 @@ enum Hive {
     case player(name: String)
     case playerGame(name: String, game: GameType)
     
+    // MARK: - Games
+    case recentGames(game: GameType)
+    case gameData(game: GameType)
+    case gameDetails(game: GameType, id: String)
+    
     // MARK: - Leaderboard
     case leaderboard(game: GameType)
     
@@ -32,10 +37,14 @@ extension Hive: Endpoint {
         case .player(let name): return "/v1/player/\(name)"
         case .playerGame(let name, let game): return "/v1/player/\(name)/\(game.game())"
             
-        case .gameMaps(let game): return "/v1/game/\(game.game())/maps"
-        case .mapDetails(let game, let map): return "/v1/game/\(game.game())/maps/\(map)"
+        case .recentGames(let game): return "/v1/game/\(game.game())"
+        case .gameData(let game): return "/v1/game/\(game.game())/data"
+        case .gameDetails(let game, let id): return "/v1/game/\(game.game())/data/\(id)"
             
         case .leaderboard(let game): return "/v1/game/\(game.game())/leaderboard/1/200"
+            
+        case .gameMaps(let game): return "/v1/game/\(game.game())/maps"
+        case .mapDetails(let game, let map): return "/v1/game/\(game.game())/maps/\(map)"
         }
     }
     
